@@ -1,43 +1,49 @@
-/* Global Variables & Resets */
-:root{
-    --font-primary: 'inter',sans-serif;
-
+/* --- Global Variables & Resets --- */
+:root {
+    --font-primary: 'Inter', sans-serif;
+    --bg-light: #f7f7f5;
+    --bg-dark: #000000;
 }
 
 body {
     font-family: var(--font-primary);
-    -webkit-font-smoothing:antialiased;
-
+    -webkit-font-smoothing: antialiased;
+    margin: 0;
 }
 
-/* themes */
-.theme-light{
-    background-color: #f7f7f5;
+/* --- Themes --- */
+.theme-light {
+    background-color: var(--bg-light);
     color: black;
 }
 
-.theme-dark{
-    background-color: black;
-    color: #f7f7f5;
+.theme-dark {
+    background-color: var(--bg-dark);
+    color: var(--bg-light);
 }
 
-.custom-navbar{
-    border-bottom:1 px solid color color-mix(in srgb, currentcolor 10%, transparent);
+/* --- Navigation --- */
+.custom-navbar {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     padding: 1.5rem 0;
 }
 
-.brand-text{
-    font-size: 1.75rem;
-    color: inherit !important;
-
+.theme-dark .custom-navbar {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.nav-link{
+.brand-text {
+    font-size: 1.75rem;
+    color: inherit !important;
+    text-decoration: none;
+}
+
+.nav-link {
     color: inherit !important;
     font-size: 0.95rem;
     font-weight: 400;
     position: relative;
-    padding: 0.5rem 1 rem;
+    padding: 0.5rem 1rem;
 }
 
 .nav-link::after {
@@ -47,7 +53,7 @@ body {
     height: 1px;
     bottom: 0;
     left: 50%;
-    background-color: currentColor; 
+    background-color: currentColor;
     transition: all 0.3s ease-in-out;
     transform: translateX(-50%);
 }
@@ -57,46 +63,48 @@ body {
 }
 
 .nav-separator {
-    opacity: 0.3; 
+    opacity: 0.3;
     font-weight: 300;
 }
 
+/* --- Hero Section --- */
 .hero-section {
     height: calc(100vh - 90px);
     padding: 0;
-    overflow: hidden;;
+    overflow: hidden;
+    position: relative;
 }
 
 .hero-image-container {
     height: 100%;
     display: flex;
     justify-content: flex-end;
-    align-items: flex-end; 
+    align-items: flex-end;
 }
 
 .profile-image {
-    height: 85vh; 
+    height: 85vh;
     width: auto;
     z-index: 2;
     display: block;
-    
-    margin-bottom: 0;
 }
+
 .hero-title {
     font-size: clamp(5rem, 8vw, 8rem);
     letter-spacing: -0.04em;
     line-height: 1;
+    font-weight: 800;
 }
 
 .hero-tagline {
     font-size: 1.25rem;
     font-weight: 400;
     max-width: 450px;
+    margin-bottom: 2rem;
 }
 
 .btn-custom {
     display: inline-block;
-    border-radius: 0; 
     padding: 1rem 2.5rem;
     font-weight: 600;
     font-size: 1.1rem;
@@ -115,46 +123,142 @@ body {
     color: #000000 !important;
 }
 
-.theme-light .btn-custom:hover {
-    background-color: transparent;
-    color: #000000 !important;
-    border-color: #000000;
+.btn-custom:hover {
+    background-color: transparent !important;
+    border-color: currentColor;
+    color: inherit !important;
 }
-
-.theme-dark .btn-custom:hover {
-    background-color: transparent;
-    color: #f7f7f5 !important;
-    border-color: #f7f7f5;
-}
-
-.hero-image-container {
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-}
-
 
 .abstract-bg {
     position: absolute;
-    /* Adjust these to move the shape into the right corner as seen in reference */
-    top: 15%; 
-    right: -10%; 
+    top: 15%;
+    right: -10%;
     width: 600px;
     height: 600px;
-    background-color: color-mix(in srgb, currentColor 4%, transparent); 
+    background-color: rgba(0, 0, 0, 0.04);
     border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
     z-index: 1;
     transform: rotate(-15deg);
 }
 
+/* --- Refined About Section --- */
+.about-section {
+    min-height: 100vh;
+    background-color: #000000;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+}
+
+.text-wrapper {
+    max-width: 85%;
+    padding-left: 10%;
+    text-align: left;
+}
+
+.name-intro {
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    font-weight: 800;
+    letter-spacing: -2px;
+    margin-bottom: 0.5rem;
+    color: #ffffff;
+}
+
+.role-intro {
+    font-size: clamp(1.5rem, 3vw, 2.2rem);
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 1.5rem;
+    display: block;
+}
+
+.description-text {
+    font-size: clamp(1.1rem, 1.5vw, 1.3rem);
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.5); /* Muted for premium feel */
+    max-width: 420px;
+}
+
+/* --- Staggered Marquee Logic --- */
+.marquee-wrapper {
+    width: 100%;
+    overflow: hidden;
+    mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+}
+
+.marquee-track {
+    display: flex;
+    width: max-content;
+    animation: scroll-left 50s linear infinite;
+}
+
+.marquee-track:hover {
+    animation-play-state: paused;
+}
+
+.staggered-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 160px);
+    grid-template-rows: repeat(3, 160px);
+    gap: 30px;
+    padding-right: 30px;
+    flex-shrink: 0;
+}
+
+/* ZIG-ZAG OFFSET: Shifting rows to create the diagonal look */
+/* Row 2 (items 5-8) */
+.staggered-grid div:nth-child(n+5):nth-child(-n+8) {
+    transform: translateX(80px);
+}
+/* Row 3 (items 9-12) */
+.staggered-grid div:nth-child(n+9):nth-child(-n+12) {
+    transform: translateX(160px);
+}
+
+.m-card {
+    width: 160px;
+    height: 160px;
+    background-color: #111;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.m-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.m-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.8;
+    filter: grayscale(100%);
+    transition: all 0.4s ease;
+}
+
+.m-card:hover img {
+    opacity: 1;
+    filter: grayscale(0%);
+}
+
+/* --- Animation Keyframes --- */
+@keyframes scroll-left {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+/* --- Responsive Media Queries --- */
 @media (max-width: 991px) {
     .hero-section {
         height: auto;
-        padding-top: 5rem;
+        padding: 5rem 0;
     }
     
     .profile-image {
-        height: 50vh; /* Shorter on mobile so text has room */
+        height: 50vh;
         margin-top: 2rem;
     }
 
@@ -162,6 +266,21 @@ body {
         width: 300px;
         height: 300px;
         top: 40%;
-        right: 0;
+    }
+
+    .about-section .row {
+        flex-wrap: wrap;
+    }
+
+    .text-wrapper {
+        padding: 4rem 2rem;
+        max-width: 100%;
+    }
+}
+
+@media (min-width: 768px) {
+    /* Prevents the about text and images from stacking on tablets/desktops */
+    .about-section .row {
+        flex-wrap: nowrap;
     }
 }
