@@ -219,19 +219,60 @@ body {
     transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
+@keyframes led-smooth-A {
+    0%, 100% { filter: grayscale(0%); opacity: 1; }
+    50% { filter: grayscale(100%); opacity: 0.8; }
+}
+
+/* Pattern B: Fades Gray (0s) -> Color (1s) -> Gray (2s) */
+@keyframes led-smooth-B {
+    0%, 100% { filter: grayscale(100%); opacity: 0.8; }
+    50% { filter: grayscale(0%); opacity: 1; }
+}
+
 .m-card img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    opacity: 0.8;
-    filter: grayscale(100%);
-    transition: all 0.4s ease;
+    transition: none;
+    /* opacity: 1;
+    filter: grayscale(0%);
+    transition: all 0.4s ease; */
+    /* animation: color-pulse 2s infinite; */
 }
 
-.m-card:hover img {
+/* 3. Apply the Smooth Pattern to the 4x3 Grid */
+
+/* --- Line 1 & Line 3 Pattern (A, B, A, B) --- */
+.staggered-grid div:nth-child(1) img, 
+.staggered-grid div:nth-child(3) img,
+.staggered-grid div:nth-child(9) img, 
+.staggered-grid div:nth-child(11) img {
+    animation: led-smooth-A 1s infinite ease-in-out;
+}
+
+.staggered-grid div:nth-child(2) img, 
+.staggered-grid div:nth-child(4) img,
+.staggered-grid div:nth-child(10) img, 
+.staggered-grid div:nth-child(12) img {
+    animation: led-smooth-B 1s infinite ease-in-out;
+}
+
+/* --- Line 2 Pattern (B, A, B, A) --- */
+.staggered-grid div:nth-child(5) img, 
+.staggered-grid div:nth-child(7) img {
+    animation: led-smooth-B 1s infinite ease-in-out;
+}
+
+.staggered-grid div:nth-child(6) img, 
+.staggered-grid div:nth-child(8) img {
+    animation: led-smooth-A 1s infinite ease-in-out;
+}
+
+/* .m-card:hover img {
     opacity: 1;
     filter: grayscale(0%);
-}
+} */
 
 @keyframes scroll-left {
     0% { transform: translateX(0); }

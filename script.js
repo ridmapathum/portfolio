@@ -14,3 +14,4 @@ function moveSlider(direction) {
     // Use 100% since we removed the gap in the HTML window
     slider.style.transform = `translateX(-${currentIndex * 100}%)`;
 }
+
